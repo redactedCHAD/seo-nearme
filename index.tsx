@@ -134,4 +134,37 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(element);
   });
 
+  // --- 6. Interactive Tilt Effect ---
+  const cardsToTilt = document.querySelectorAll<HTMLElement>('.card.clickable, .pricing-card');
+
+  cardsToTilt.forEach(card => {
+    const isMostPopular = card.classList.contains('most-popular');
+    const initialTransform = isMostPopular ? 'perspective(1000px) scale(1.05)' : 'perspective(1000px) scale(1)';
+
+    // Set initial state for the most popular card
+    if (isMostPopular) {
+        card.style.transform = initialTransform;
+    }
+
+    card.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const { width, height } = rect;
+
+      const rotateX = (y / height - 0.5) * -20;
+      const rotateY = (x / width - 0.5) * 20;
+      const hoverBase = isMostPopular ? 'scale(1.08)' : 'scale(1.03)';
+      const hoverTransform = `translateY(-8px) ${hoverBase}`;
+
+      card.style.transition = 'transform 0.1s linear';
+      card.style.transform = `perspective(1000px) ${hoverTransform} rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+      card.style.transform = initialTransform;
+    });
+  });
+
 });
