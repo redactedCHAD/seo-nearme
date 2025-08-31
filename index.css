@@ -1,12 +1,12 @@
 :root {
-  --background-start: #0D2520;
-  --background-end: #061310;
-  --card-bg: rgba(22, 48, 41, 0.4);
+  --background-start: #001219;
+  --background-end: #00080b;
+  --card-bg: rgba(0, 28, 38, 0.4);
   --card-border: rgba(255, 255, 255, 0.1);
-  --glow-color: rgba(16, 243, 175, 0.5);
-  --glow-color-strong: rgba(16, 243, 175, 0.8);
-  --text-primary: #e8f5f1;
-  --text-secondary: #a0c0b8;
+  --glow-color: rgba(0, 180, 216, 0.5);
+  --glow-color-strong: rgba(0, 180, 216, 0.8);
+  --text-primary: #e9ecef;
+  --text-secondary: #a9d6e5;
   --font-family: 'Poppins', sans-serif;
 }
 
@@ -53,7 +53,7 @@ header {
 }
 
 header.scrolled {
-  background: rgba(15, 46, 37, 0.5);
+  background: rgba(0, 28, 38, 0.5);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--card-border);
@@ -433,10 +433,6 @@ footer {
 
 
 /* Modal Styles */
-.hidden {
-  display: none !important;
-}
-
 #modal-overlay {
   position: fixed;
   top: 0;
@@ -445,20 +441,27 @@ footer {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#modal-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .modal {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
   width: 90%;
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
   z-index: 101;
-  display: block;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 16px;
@@ -467,6 +470,16 @@ footer {
   backdrop-filter: blur(16px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 
               0 0 40px var(--glow-color);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.modal.hidden {
+  transform: translate(-50%, -50%) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .modal-close-btn {
