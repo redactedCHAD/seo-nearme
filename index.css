@@ -256,7 +256,17 @@ main {
   font-weight: 700;
   color: var(--text-primary);
   background-color: var(--card-bg);
+  box-shadow: 0 0 15px var(--glow-color);
+  animation: pulse-glow 3s infinite ease-in-out;
 }
+.steps-container .step-card:nth-child(2) .step-icon {
+  animation-delay: 0.3s;
+}
+
+.steps-container .step-card:nth-child(3) .step-icon {
+  animation-delay: 0.6s;
+}
+
 .step-card h3 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
@@ -341,6 +351,7 @@ main {
   background-color: var(--glow-color);
   color: var(--background-end);
   box-shadow: 0 0 20px var(--glow-color);
+  transform: translateY(-2px);
 }
 
 .pricing-card.most-popular {
@@ -353,6 +364,12 @@ main {
 .pricing-card.most-popular .cta-button {
     background-color: var(--glow-color);
     color: var(--background-end);
+}
+
+.pricing-card.most-popular .cta-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 30px var(--glow-color-strong);
+  filter: brightness(1.15);
 }
 
 /* FAQ Section */
@@ -506,6 +523,17 @@ footer {
 }
 
 /* Animation Styles */
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px var(--glow-color);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--glow-color-strong);
+  }
+}
+
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(20px);
