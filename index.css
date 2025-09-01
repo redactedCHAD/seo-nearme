@@ -8,6 +8,8 @@
   --text-primary: #e9ecef;
   --text-secondary: #a9d6e5;
   --font-family: 'Poppins', sans-serif;
+  --primary-color: #00B4D8;
+  --secondary-color: #0077B6;
 }
 
 *,
@@ -332,44 +334,60 @@ main {
   font-weight: bold;
 }
 
-.pricing-card .cta-button {
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  background-color: transparent;
-  border: 2px solid var(--glow-color);
-  color: var(--text-primary);
-  border-radius: 8px;
-  text-align: center;
+/* === New CTA Button Style === */
+.cta-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #fff;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  background-image: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-out;
+  width: 100%;
 }
 
-.pricing-card .cta-button:hover {
-  background-color: var(--glow-color);
-  color: var(--background-end);
-  box-shadow: 0 0 20px var(--glow-color);
-  transform: translateY(-2px);
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px hsla(197, 100%, 46%, 0.4);
 }
+
+/* Shine effect element */
+.cta-button > span:first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-45deg) translateX(-150%);
+  transition: transform 0.7s ease-in-out;
+}
+
+/* Shine effect on hover */
+.cta-button:hover > span:first-child {
+  transform: skewX(-45deg) translateX(150%);
+}
+
+/* Text element */
+.cta-button > span.relative {
+  position: relative;
+  z-index: 1;
+}
+
 
 .pricing-card.most-popular {
   border-color: var(--glow-color-strong);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 
               0 0 40px var(--glow-color-strong), 
               inset 0 0 12px rgba(255,255,255,0.1);
-}
-
-.pricing-card.most-popular .cta-button {
-    background-color: var(--glow-color);
-    color: var(--background-end);
-}
-
-.pricing-card.most-popular .cta-button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 30px var(--glow-color-strong);
-  filter: brightness(1.15);
 }
 
 /* FAQ Section */
@@ -534,6 +552,18 @@ footer {
   color: var(--text-primary);
   font-weight: 600;
 }
+
+.modal-cta-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.modal-cta-container .cta-button {
+    width: auto; /* Override full-width for modal buttons */
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
 
 /* Animation Styles */
 @keyframes pulse-glow {

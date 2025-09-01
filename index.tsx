@@ -63,6 +63,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+
+    // --- New Logic for Modal CTA Links ---
+    const modalLinks = document.querySelectorAll('.modal-cta-link');
+    modalLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const modal = link.closest('.modal');
+        closeModal(modal);
+
+        const href = link.getAttribute('href');
+        if(href){
+          const targetElement = document.querySelector<HTMLElement>(href);
+          if (targetElement) {
+            setTimeout(() => {
+              targetElement.scrollIntoView({
+                behavior: 'smooth'
+              });
+            }, 300); 
+          }
+        }
+      });
+    });
   }
 
   // --- 2. Scrolled Header Logic ---
