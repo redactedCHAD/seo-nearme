@@ -78,19 +78,34 @@ nav {
 nav ul {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 0.5rem; /* Reduced gap for button style */
 }
 
 nav a {
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 600;
-  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.3s ease;
 }
 
 nav a:hover {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--card-border);
+  box-shadow: 0 0 10px var(--glow-color);
 }
+
+nav a.active-link {
+  color: #fff;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px var(--glow-color-strong);
+}
+
 
 .hero-section {
   text-align: center;
@@ -169,6 +184,29 @@ main {
   cursor: pointer;
 }
 
+/* === Shared Shine Effect === */
+.shine-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: skewX(-45deg) translateX(-150%);
+    transition: transform 0.7s ease-in-out;
+    pointer-events: none;
+}
+
+.card .shine-effect {
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+.card.clickable:hover .shine-effect,
+.cta-button:hover .shine-effect {
+    transform: skewX(-45deg) translateX(150%);
+}
+
+
 .card-icon {
   width: 48px;
   height: 48px;
@@ -181,6 +219,8 @@ main {
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .bento-grid .card-content {
@@ -359,21 +399,8 @@ main {
   box-shadow: 0 8px 25px hsla(197, 100%, 46%, 0.4);
 }
 
-/* Shine effect element */
-.cta-button > span:first-child {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: skewX(-45deg) translateX(-150%);
-  transition: transform 0.7s ease-in-out;
-}
-
-/* Shine effect on hover */
-.cta-button:hover > span:first-child {
-  transform: skewX(-45deg) translateX(150%);
+.cta-button .shine-effect {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Text element */
@@ -521,6 +548,13 @@ footer {
 .modal-content h2 {
   color: var(--text-primary);
   margin-bottom: 1rem;
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.modal:not(.hidden) .modal-content h2 {
+  animation: fadeInUp 0.6s ease-out 0.2s forwards;
 }
 
 .modal-content p {
@@ -528,30 +562,65 @@ footer {
   margin-bottom: 1.5rem;
 }
 
-.modal-content ul {
-  list-style-type: none;
-  padding-left: 0;
+/* === Modal Accordion Styles === */
+.modal-accordion {
+  margin-bottom: 1.5rem;
 }
-
-.modal-content ul li {
+.accordion-item {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+}
+.accordion-toggle {
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-align: left;
+}
+.accordion-icon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+.accordion-toggle[aria-expanded="true"] .accordion-icon {
+  transform: rotate(45deg);
+}
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.accordion-content ul {
+  list-style-type: none;
+  padding: 0 1rem 1rem;
+}
+.accordion-content ul li {
   color: var(--text-secondary);
   margin-bottom: 1rem;
   padding-left: 1.5rem;
   position: relative;
 }
-
-.modal-content ul li::before {
+.accordion-content ul li::before {
   content: '✓';
   position: absolute;
   left: 0;
   color: var(--glow-color);
   font-weight: bold;
 }
-
-.modal-content strong {
+.accordion-content strong {
   color: var(--text-primary);
   font-weight: 600;
 }
+
 
 .modal-cta-container {
   margin-top: 2rem;
@@ -574,6 +643,13 @@ footer {
   50% {
     transform: scale(1.05);
     box-shadow: 0 0 25px var(--glow-color-strong);
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

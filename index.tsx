@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 4. FAQ Accordion Logic ---
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(item => {
-    // FIX: Cast querySelector results to specific HTML element types to avoid type errors.
     const questionButton = item.querySelector<HTMLButtonElement>('.faq-question');
     const answerPanel = item.querySelector<HTMLElement>('.faq-answer');
 
@@ -125,21 +124,37 @@ document.addEventListener('DOMContentLoaded', () => {
       questionButton.addEventListener('click', () => {
         const isExpanded = questionButton.getAttribute('aria-expanded') === 'true';
 
-        // FIX: The setAttribute method requires a string value. Convert the boolean to a string.
         questionButton.setAttribute('aria-expanded', String(!isExpanded));
         if (!isExpanded) {
-          // Expand
           answerPanel.style.maxHeight = answerPanel.scrollHeight + 'px';
         } else {
-          // Collapse
           answerPanel.style.maxHeight = '0px';
         }
       });
     }
   });
 
+  // --- 5. Modal Accordion Logic ---
+  const accordionToggles = document.querySelectorAll('.accordion-toggle');
+  accordionToggles.forEach(toggle => {
+    const contentPanel = toggle.nextElementSibling as HTMLElement;
 
-  // --- 5. Scroll Animation Logic ---
+    if (contentPanel) {
+      toggle.addEventListener('click', () => {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.setAttribute('aria-expanded', String(!isExpanded));
+        if (!isExpanded) {
+          contentPanel.style.maxHeight = contentPanel.scrollHeight + 'px';
+        } else {
+          contentPanel.style.maxHeight = '0px';
+        }
+      });
+    }
+  });
+
+
+  // --- 6. Scroll Animation Logic ---
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -156,14 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(element);
   });
 
-  // --- 6. Interactive Tilt Effect ---
+  // --- 7. Interactive Tilt Effect ---
   const cardsToTilt = document.querySelectorAll<HTMLElement>('.card.clickable, .pricing-card');
 
   cardsToTilt.forEach(card => {
     const isMostPopular = card.classList.contains('most-popular');
     const initialTransform = isMostPopular ? 'perspective(1000px) scale(1.05)' : 'perspective(1000px) scale(1)';
 
-    // Set initial state for the most popular card
     if (isMostPopular) {
         card.style.transform = initialTransform;
     }
@@ -187,6 +201,34 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
       card.style.transform = initialTransform;
     });
+  });
+
+  // --- 8. Active Nav Link on Scroll Logic ---
+  const sections = document.querySelectorAll<HTMLElement>('section[id]');
+  const allNavLinks = document.querySelectorAll<HTMLAnchorElement>('nav a');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-70px 0px -50% 0px', // Adjusts the "trigger zone" to be the top part of the viewport
+    threshold: 0
+  };
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        allNavLinks.forEach(link => {
+          link.classList.remove('active-link');
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active-link');
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => {
+    sectionObserver.observe(section);
   });
 
 });
