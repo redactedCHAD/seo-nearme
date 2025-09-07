@@ -39,10 +39,6 @@ body {
   z-index: -1;
 }
 
-body.modal-open {
-  overflow: hidden;
-}
-
 header {
   width: 100%;
   padding: 0 2rem;
@@ -115,7 +111,7 @@ nav a.active-link {
 }
 
 .hero-section h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -128,20 +124,32 @@ nav a.active-link {
   margin: 0 auto;
 }
 
-
-main {
-  width: 100%;
-  padding: 2rem 2rem 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Section Base Styles */
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
 
-.bento-grid {
+.section-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+}
+
+.services-section {
+  padding: 4rem 2rem;
+}
+
+.services-grid {
   display: grid;
   width: 100%;
   max-width: 1200px;
-  grid-template-columns: 1fr;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
@@ -161,19 +169,6 @@ main {
   flex-direction: column;
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 16px;
-  box-shadow: 0 0 0 1px transparent;
-  transition: box-shadow 0.3s ease;
-  pointer-events: none;
-}
-
 .card.clickable:hover {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 
               0 0 40px var(--glow-color), 
@@ -184,47 +179,13 @@ main {
   cursor: pointer;
 }
 
-/* === Shared Shine Effect === */
-.shine-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: skewX(-45deg) translateX(-150%);
-    transition: transform 0.7s ease-in-out;
-    pointer-events: none;
-}
-
-.card .shine-effect {
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 1;
-}
-
-.card.clickable:hover .shine-effect,
-.cta-button:hover .shine-effect {
-    transform: skewX(-45deg) translateX(150%);
-}
-
-
-.card-icon {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 1rem;
-  color: var(--glow-color);
-}
-
 .card-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
   position: relative;
   z-index: 2;
-}
-
-.bento-grid .card-content {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .card h2 {
@@ -235,41 +196,75 @@ main {
 }
 
 .card h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .card p {
   font-size: 1rem;
   color: var(--text-secondary);
   font-weight: 300;
+  flex-grow: 1;
 }
 
-@media (min-width: 768px) {
-  .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.service-card .card-content {
+  text-align: left;
 }
 
-/* Section Base Styles */
-.section-title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  text-align: center;
+.service-card .features-list {
+  list-style: none;
+  margin-bottom: 2rem;
+  padding: 0;
+  flex-grow: 1;
 }
 
-.section-subtitle {
-  font-size: clamp(1rem, 2vw, 1.2rem);
+.service-card .features-list li {
   color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto 3rem auto;
-  text-align: center;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
 }
+
+.service-card .features-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--glow-color);
+  font-weight: bold;
+}
+
+.service-pricing {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.price-item {
+  text-align: center;
+  flex: 1;
+}
+
+.price-item span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.price-item strong {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 
 /* How It Works Section */
 .how-it-works-section {
@@ -277,7 +272,7 @@ main {
 }
 .steps-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
@@ -305,74 +300,75 @@ main {
   animation-delay: 0.3s;
 }
 
-.steps-container .step-card:nth-child(3) .step-icon {
-  animation-delay: 0.6s;
-}
-
 .step-card h3 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
 
-/* Pricing Section */
-.pricing-section {
+/* About Section */
+.about-section {
   padding: 4rem 2rem;
 }
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  max-width: 1000px;
+.about-content {
+  max-width: 800px;
   margin: 0 auto;
+  text-align: center;
 }
-
-.pricing-grid .reveal-on-scroll:nth-child(2) {
-  transition-delay: 0.2s;
+.about-content p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
 }
-
-.pricing-grid .reveal-on-scroll:nth-child(3) {
-  transition-delay: 0.4s;
-}
-
-.pricing-card .card-content {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.pricing-card .price {
-  font-size: 1.5rem;
-  font-weight: 300;
+.about-content p:not(:last-child){
   margin-bottom: 1.5rem;
 }
 
-.pricing-card .price span {
-  font-size: 3rem;
+
+/* Contact Section */
+.contact-section {
+  padding: 4rem 2rem;
+}
+
+.contact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  text-align: center;
+  border-color: var(--glow-color-strong);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 
+              0 0 40px var(--glow-color-strong), 
+              inset 0 0 12px rgba(255,255,255,0.1);
+}
+
+.contact-card h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-card .investment-label {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.contact-card .price {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.contact-card .price span {
+  font-size: 4rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.pricing-card .features-list {
-  list-style: none;
-  margin-bottom: 2rem;
-  flex-grow: 1;
-}
-
-.pricing-card .features-list li {
+.contact-card .commission-note {
   color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-  padding-left: 1.5rem;
-  position: relative;
+  font-style: italic;
+  margin-bottom: 2rem;
 }
 
-.pricing-card .features-list li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--glow-color);
-  font-weight: bold;
-}
 
 /* === New CTA Button Style === */
 .cta-button {
@@ -391,7 +387,7 @@ main {
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-out;
-  width: 100%;
+  width: auto;
 }
 
 .cta-button:hover {
@@ -401,20 +397,23 @@ main {
 
 .cta-button .shine-effect {
     background: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: skewX(-45deg) translateX(-150%);
+    transition: transform 0.7s ease-in-out;
+    pointer-events: none;
 }
 
-/* Text element */
+.cta-button:hover .shine-effect {
+    transform: skewX(-45deg) translateX(150%);
+}
+
 .cta-button > span.relative {
   position: relative;
   z-index: 1;
-}
-
-
-.pricing-card.most-popular {
-  border-color: var(--glow-color-strong);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 
-              0 0 40px var(--glow-color-strong), 
-              inset 0 0 12px rgba(255,255,255,0.1);
 }
 
 /* FAQ Section */
@@ -477,163 +476,6 @@ footer {
 }
 
 
-/* Modal Styles */
-#modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 100;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s ease-in-out;
-}
-
-#modal-overlay.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-  z-index: 101;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 2.5rem 2rem 2rem;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 
-              0 0 40px var(--glow-color);
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.modal.hidden {
-  transform: translate(-50%, -50%) scale(0.95);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  transition: color 0.2s ease;
-}
-
-.modal-close-btn:hover {
-  color: var(--text-primary);
-}
-
-.modal-content h2 {
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  /* Initial state for animation */
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.modal:not(.hidden) .modal-content h2 {
-  animation: fadeInUp 0.6s ease-out 0.2s forwards;
-}
-
-.modal-content p {
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-}
-
-/* === Modal Accordion Styles === */
-.modal-accordion {
-  margin-bottom: 1.5rem;
-}
-.accordion-item {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-}
-.accordion-toggle {
-  background: transparent;
-  border: none;
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  color: var(--text-primary);
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: inherit;
-  text-align: left;
-}
-.accordion-icon {
-  font-size: 1.5rem;
-  color: var(--text-secondary);
-  transition: transform 0.3s ease;
-}
-.accordion-toggle[aria-expanded="true"] .accordion-icon {
-  transform: rotate(45deg);
-}
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-.accordion-content ul {
-  list-style-type: none;
-  padding: 0 1rem 1rem;
-}
-.accordion-content ul li {
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
-  position: relative;
-}
-.accordion-content ul li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--glow-color);
-  font-weight: bold;
-}
-.accordion-content strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-
-.modal-cta-container {
-  margin-top: 2rem;
-  text-align: center;
-}
-
-.modal-cta-container .cta-button {
-    width: auto; /* Override full-width for modal buttons */
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-
 /* Animation Styles */
 @keyframes pulse-glow {
   0%, 100% {
@@ -643,13 +485,6 @@ footer {
   50% {
     transform: scale(1.05);
     box-shadow: 0 0 25px var(--glow-color-strong);
-  }
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
