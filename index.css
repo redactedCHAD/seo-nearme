@@ -70,13 +70,6 @@ nav {
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--text-primary);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.logo:hover {
-  color: var(--primary-color);
 }
 
 nav ul {
@@ -85,7 +78,7 @@ nav ul {
   gap: 0.5rem; /* Reduced gap for button style */
 }
 
-nav ul a {
+nav a {
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 700;
@@ -96,14 +89,14 @@ nav ul a {
   transition: all 0.3s ease;
 }
 
-nav ul a:hover {
+nav a:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.05);
   border-color: var(--card-border);
   box-shadow: 0 0 10px var(--glow-color);
 }
 
-nav ul a.active-link {
+nav a.active-link {
   color: #fff;
   background-color: var(--primary-color);
   border-color: var(--primary-color);
