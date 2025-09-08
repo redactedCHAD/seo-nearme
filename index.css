@@ -7,7 +7,7 @@
   --glow-color-strong: rgba(0, 180, 216, 0.8);
   --text-primary: #e9ecef;
   --text-secondary: #a9d6e5;
-  --font-family: 'Poppins', sans-serif;
+  --font-family: 'Inter', sans-serif;
   --primary-color: #00B4D8;
   --secondary-color: #0077B6;
 }
@@ -28,6 +28,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  font-weight: 600;
 }
 
 #svg-bg-pattern {
@@ -68,7 +69,7 @@ nav {
 
 .logo {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 nav ul {
@@ -80,7 +81,7 @@ nav ul {
 nav a {
   text-decoration: none;
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -105,16 +106,34 @@ nav a.active-link {
 
 .hero-section {
   text-align: center;
-  padding: 6rem 1rem;
-  max-width: 800px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.prismatic-burst-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .hero-section h1 {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
 }
 
 .hero-section p {
@@ -122,12 +141,14 @@ nav a.active-link {
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Section Base Styles */
 .section-title {
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -190,14 +211,14 @@ nav a.active-link {
 
 .card h2 {
   font-size: clamp(1.25rem, 3vw, 1.5rem);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .card h3 {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     margin-top: 1.5rem;
     margin-bottom: 1rem;
@@ -206,7 +227,6 @@ nav a.active-link {
 .card p {
   font-size: 1rem;
   color: var(--text-secondary);
-  font-weight: 300;
   flex-grow: 1;
 }
 
@@ -261,7 +281,7 @@ nav a.active-link {
 .price-item strong {
   display: block;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
@@ -303,6 +323,7 @@ nav a.active-link {
 .step-card h3 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 
@@ -343,6 +364,7 @@ nav a.active-link {
 .contact-card h3 {
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 .contact-card .investment-label {
@@ -353,13 +375,13 @@ nav a.active-link {
 
 .contact-card .price {
   font-size: 2rem;
-  font-weight: 300;
+  font-weight: 600;
   margin: 0.5rem 0 1rem 0;
 }
 
 .contact-card .price span {
   font-size: 4rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
@@ -443,7 +465,7 @@ nav a.active-link {
   cursor: pointer;
   color: var(--text-primary);
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: inherit;
   text-align: left;
 }
@@ -485,6 +507,15 @@ footer {
   50% {
     transform: scale(1.05);
     box-shadow: 0 0 25px var(--glow-color-strong);
+  }
+}
+
+@keyframes rotate-background {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 
